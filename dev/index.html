@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/main.min.css">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-route.js"></script>
+    <script src="js/cards.js"></script>
+</head>
+<body ng-controller="AppController as AppCtrl" ng-init="AppCtrl.init()">
+    <main class="main">
+        <ul class="cards-list">
+        </ul>
+    </main>
+<script id="cards" type="text/x-handlebars-template">
+    {{#each cards}}
+    {{#if_eq this.type 'wide'}}
+    <li class="card--wide">{{this.type}}</li>
+    {{else}}
+    <li class="card">{{this.type}}</li>
+    {{/if_eq}}
+    {{/each}}
+</script>
+<script src="js/app.js"></script>
+<script src="js/app-controller.js"></script>
+</body>
+</html>
