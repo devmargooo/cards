@@ -66,13 +66,6 @@ gulp.task('img', function () {
         .pipe(gulp.dest('build/img'))
 });
 
-gulp.task('templates', function () {
-    gulp.src([
-        'dev/templates/**/*.html'
-    ])
-        .pipe(gulp.dest('build/templates'))
-});
-
 gulp.task('svgSprite', function () {
     return gulp.src('dev/icons-svg/*.svg')
         .pipe($.svgSprite({
@@ -132,17 +125,15 @@ gulp.task('sass', function(){
 
 
 
-gulp.task('watch', ['sass', 'scripts', 'html', 'templates', 'img'], function () {
+gulp.task('watch', ['sass', 'scripts', 'html'], function () {
     gulp.watch('dev/sass/**/*.scss', ['sass']);
     gulp.watch('dev/js-modules/*.js', ['scripts']);
     gulp.watch('dev/*.html', ['html']);
-    gulp.watch('dev/templates/**/*.html', ['templates']);
-    gulp.watch('dev/img/*.*', ['img']);
     gulp.watch('build/*.html', browserSync.reload);
 });
 
 
-gulp.task('build', ['sass', 'scripts', 'html', 'templates', 'img'], function() {
+gulp.task('build', ['sass', 'scripts', 'html'], function() {
 
 
 });

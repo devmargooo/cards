@@ -6,10 +6,6 @@ html{
   min-width: 48rem;
   height: 100vh;
   background: $c-bg;
-
-  &:hover{
-    background: $c-bg-hover;
-  }
 }
 .body-wrapper{
   width: 100%;

@@ -2,14 +2,36 @@ angular.module('app')
     .controller('AppController', function () {
 
         let self = this;
+        self.count = 0;
 
         self.init = function () {
+            Handlebars.registerHelper("inc", function(value, options)
+            {
+                return parseInt(value) + 1;
+            });
+
+            Handlebars.registerHelper("count", function(value, options)
+            {
+                return self.count;
+            });
+
             Handlebars.registerHelper('if_eq', function(a, b, opts) {
                 if(a == b)
                     return opts.fn(this);
                 else
                     return opts.inverse(this);
             });
+
+            $('.cards-list').mouseover(function(e) {
+                if (!e.target.classList.contains('cards-list')) return;
+                $('.cards-list').css("background-color", "#e9e6d3");
+            });
+            $('.cards-list').mouseout(function() {
+                $('.cards-list').css("background-color", "#f6f2de");
+            });
+
+
+            self.count = cards.length;
 
             let data = {};
             data['cards'] = cards;
@@ -35,19 +57,21 @@ angular.module('app')
                 let newCard = {};
 
                 if (e.altKey){
-                    console.log('add wide');
                     newCard.type = 'wide';
                 } else {
-                    console.log('add narrow');
                     newCard.type = 'narrow';
                 }
+                self.count++;
                 cards.push(newCard);
 
                 let templateScript = $('#new-card').html();
                 let template = Handlebars.compile(templateScript);
                 $('.cards-list').append(template(newCard));
             } else {
-                console.log('remove');
+                self.count--;
+                cards.pop();
+                document.querySelector('.cards-list')
+                    .removeChild(document.querySelector('.cards-list').lastElementChild);
             }
 
         };

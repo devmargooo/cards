@@ -1,9 +1,11 @@
 .cards-list{
   position: relative;
   height: 100%;
+  background: inherit;
 }
 
 .card{
+  display: flex;
   position: absolute;
   top: 1rem;
   left: 1rem;
@@ -22,7 +24,6 @@
 
 .card--wide{
   @extend .card;
-  background: yellow;
   min-width: 40rem;
   max-width: 96rem;
 
