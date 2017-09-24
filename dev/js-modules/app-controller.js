@@ -32,6 +32,7 @@ angular.module('app')
 
 
             self.count = cards.length;
+            console.log(self.count);
 
             let data = {};
             data['cards'] = cards;

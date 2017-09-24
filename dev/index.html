@@ -21,17 +21,33 @@
 <script id="cards" type="text/x-handlebars-template">
     {{#each cards}}
     {{#if_eq this.type 'wide'}}
-    <li class="card--wide">{{inc @index}}</li>
+    <li class="card--wide">
+        <div class="card__inner">
+            <span class="card__number">{{inc @index}}</span>
+        </div>
+    </li>
     {{else}}
-    <li class="card">{{inc @index}}</li>
+    <li class="card">
+        <div class="card__inner">
+            <span class="card__number">{{inc @index}}</span>
+        </div>
+    </li>
     {{/if_eq}}
     {{/each}}
 </script>
 <script id="new-card" type="text/x-handlebars-template">
     {{#if_eq this.type 'wide'}}
-    <li class="card--wide">{{count}}</li>
+    <li class="card--wide">
+        <div class="card__inner">
+            <span class="card__number">{{count}}</span>
+        </div>
+    </li>
     {{else}}
-    <li class="card">{{count}}</li>
+    <li class="card">
+        <div class="card__inner">
+            <span class="card__number">{{count}}</span>
+        </div>
+    </li>
     {{/if_eq}}
 </script>
 <script src="js/app.js"></script>
