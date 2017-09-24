@@ -31,27 +31,21 @@ angular.module('app')
             }
             if (!card) return;
 
-            if (e.shiftKey && e.altKey) {
-                console.log('add wide');
-
+            if (e.shiftKey) {
                 let newCard = {};
-                newCard.type = 'wide';
+
+                if (e.altKey){
+                    console.log('add wide');
+                    newCard.type = 'wide';
+                } else {
+                    console.log('add narrow');
+                    newCard.type = 'narrow';
+                }
                 cards.push(newCard);
 
                 let templateScript = $('#new-card').html();
                 let template = Handlebars.compile(templateScript);
                 $('.cards-list').append(template(newCard));
-            } else if (e.shiftKey) {
-                console.log('add narrow');
-
-                let newCard = {};
-                newCard.type = 'narrow';
-                cards.push(newCard);
-
-                let templateScript = $('#new-card').html();
-                let template = Handlebars.compile(templateScript);
-                $('.cards-list').append(template(newCard));
-
             } else {
                 console.log('remove');
             }
