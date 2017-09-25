@@ -3,6 +3,9 @@ angular.module('app')
 
         let self = this;
         self.count = 0;
+        self.cardsHistory = [];
+        let list = document.querySelector('.cards-list');
+        let oldHashParsed = parseHash(window.location.hash);
 
         self.init = function () {
             Handlebars.registerHelper("inc", function(value, options)
@@ -30,15 +33,33 @@ angular.module('app')
                 $('.cards-list').css("background-color", "#f6f2de");
             });
 
-
             self.count = cards.length;
             window.location.hash = self.count;
+            window.addEventListener('hashchange', self.hashListener);
 
             let data = {};
             data['cards'] = cards;
             let templateScript = $('#cards').html();
             let template = Handlebars.compile(templateScript);
             $('.cards-list').append(template(data));
+        };
+
+        self.hashListener = function () {
+            if ((parseHash(window.location.hash) === self.count) && self.cardsHistory.length === 0) {
+                console.log('neednt rounting');
+                oldHashParsed = parseHash(window.location.hash);
+            } else {
+                if (oldHashParsed > parseHash(window.location.hash)) {
+                    self.cardsHistory.push(list.removeChild(list.lastElementChild));
+                    oldHashParsed = parseHash(window.location.hash);
+                    console.log('back ' + oldHashParsed);
+                } else {
+                    console.log('forward');
+                    if (self.cardsHistory.length === 0) return;
+                    list.appendChild(self.cardsHistory.pop());
+                    oldHashParsed = parseHash(window.location.hash);
+                }
+            }
         };
 
         self.clickListener = function (e) {
@@ -55,6 +76,14 @@ angular.module('app')
             if (!card) return;
 
             if (e.shiftKey) {
+                if (self.cardsHistory.length !== 0) {//clear history
+                    cards.splice(cards.length - self.cardsHistory.length - 1,
+                        self.cardsHistory.length);
+                    self.count = cards.length;
+                    self.cardsHistory = [];
+                    oldHashParsed = cards.length;
+                }
+
                 let newCard = {};
 
                 if (e.altKey){
@@ -80,3 +109,7 @@ angular.module('app')
         };
 
     });
+
+function parseHash(hash) {
+    return (+ hash.substr(1));
+}
