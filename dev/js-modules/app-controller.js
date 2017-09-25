@@ -32,7 +32,6 @@ angular.module('app')
 
 
             self.count = cards.length;
-            window.location.hash = self.count;
 
             let data = {};
             data['cards'] = cards;
@@ -63,7 +62,6 @@ angular.module('app')
                     newCard.type = 'narrow';
                 }
                 self.count++;
-                window.location.hash = self.count;
                 cards.push(newCard);
 
                 let templateScript = $('#new-card').html();
@@ -71,7 +69,6 @@ angular.module('app')
                 $('.cards-list').append(template(newCard));
             } else {
                 self.count--;
-                window.location.hash = self.count;
                 cards.pop();
                 document.querySelector('.cards-list')
                     .removeChild(document.querySelector('.cards-list').lastElementChild);
